@@ -1,0 +1,186 @@
+@charset "UTF-8";
+
+$mainColor:#f5a623; 
+
+*{
+  margin: 0;font-family: "微软雅黑";
+  box-sizing: border-box;font-size: 13px;
+}
+html,body{
+    width: 100%;
+    /*height: 100%;*/
+    /*margin: 0;padding: 0;*/
+}
+.el-select-dropdown__item.selected {
+  color: $mainColor;
+}
+.el-select .el-input.is-focus .el-input__inner,.el-select .el-input__inner:focus {
+
+
+  border-color:  $mainColor;
+}
+.tableBox{
+  width: 100%;height: 100%;    display: flex;
+  flex-direction: column;
+}
+.lightYellow{
+  color: $mainColor;
+}
+a{
+  text-decoration: none;
+}
+.pull-left{
+  float: left;
+}
+.pull-right{
+  float: right;
+}
+h3,h4{
+  font-weight: normal;
+}
+.routerShow_width{
+  max-width: 1200px;    display: block;
+  margin: 0 auto;
+  padding-left: 20px;padding-right: 20px;
+}
+.routerShow{
+  background: #f7f7f7;
+}
+.routerBox{
+  min-height: 680px;
+}
+.el-table__header-wrapper th{
+  background: #f7f7f7!important;
+  /* color: black; */
+  color: #333;
+  font-weight: normal;
+}
+a:hover{
+  text-decoration: underline;
+}
+.notFound{
+  height: 70px;
+  line-height: 70px;
+}
+.pageBox>p:nth-child(1){
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: left;
+  line-height: 32px;
+  color: #333;
+  font-size: 13px;
+}
+.el-pager li {
+  min-width: 21.5px;    color: #333;
+  font-weight: normal;
+}
+.el-pager li:hover,.el-pagination button:hover  {
+  color: $mainColor;
+}
+.el-pagination .btn-next {
+  padding-left: 4px;padding-right: 0;
+}
+.el-pagination .btn-prev {
+  padding-right: 4px;
+}
+.el-pagination button, .el-pagination span:not([class*=suffix]) {
+  min-width: 24.5px;
+}
+/*-------------------info样式---------------*/
+
+.commonInfoBox{
+  border: 1px solid $mainColor;margin-top: 30px!important;text-align: left;
+  box-sizing: border-box;    max-width: 1160px;margin-bottom: 30px;
+}
+.commonInfoHeader{
+  height: 56px;
+  line-height: 56px;    text-transform: capitalize;
+  background: #fdedd2;
+  margin-left: -20px;
+  margin-right: -20px;    font-size: 16px;
+}
+.commonInfoHeader{
+  padding: 0 20px;
+  margin-left: -20px;
+    margin-right: -20px;
+ 
+}
+@media only screen and (max-width: 768px) {
+  .commonInfoBox {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .routerBox {
+    min-height: 60px;
+ }
+}
+.commonInfoBody{
+  /* padding: 0 14px; */
+      padding: 7px 0;
+}
+.commonInfoRow{
+  padding: 11px 0;display: flex;
+}
+.commonInfo_itemL{
+  display: inline-block;
+  width: 200px;
+  text-transform: capitalize;
+
+    width: 18%;
+  min-width: 112px;
+}
+.commonInfo_itemR{
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.el-pagination {
+  padding-right: 0;
+}
+/*---------//首字母大写-------*/
+.upperString{
+  text-transform: capitalize;
+}
+.el-table__header-wrapper th{
+  text-transform: capitalize!important;
+}
+
+.el-pager li.active {
+    color: $mainColor;
+}
+	.el-table .cell {
+  	overflow: hidden ;    text-align: center;
+   
+  }
+  .el-table td, .el-table th {
+     text-align: center;    padding: 7px 0;
+}
+
+.el-table{
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.el-table  tr:hover>td {
+  background-color: #f5f7fa;
+}
+
+
+
+  .noDataClass{
+    height: 50px;
+    line-height: 50px;
+    color: #868686;
+  }
+
+  div.ziDIngPage{
+    justify-content: flex-end!important;
+  }
+
+
+  div.el-message-box {
+    max-width: 420px;
+    width: 40%;
+    min-width: 250px;
+  }
+

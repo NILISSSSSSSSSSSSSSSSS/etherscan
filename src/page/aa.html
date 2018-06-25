@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HTML5+Plus 图片压缩上传</title>
+		<script type="text/javascript">
+			var imgData = null;
+			function appendFile(path){
+			  	var img = new Image();
+			        img.onload = function () {
+			            var that = this;
+			            var w = that.width,h = that.height,scale = w / h;
+			            	w = Math.min(200,w);//自己定义一个高度或者使用默认值
+			                h = w / scale;
+			            var canvas = document.createElement('canvas');
+			            canvas.setAttribute("width",w);
+			            canvas.setAttribute("height",h);
+			            canvas.getContext('2d').drawImage(that, 0, 0, w, h);
+			            imgData = canvas.toDataURL("image/jpeg",1);//1是清晰度[0.1~1]
+			            var pic = document.createElement("img");
+			            pic.width = w;
+			            pic.height = h;
+			            pic.src = imgData;
+			            document.body.appendChild(pic);//把图片插入到页面中显示
+			            plus.nativeUI.confirm( "您确定要上传图片?", function(e){
+			            	e.index == 0 && upload();//确定后开始上传
+						}, "系统提醒", ["确定","取消"] );
+			    }
+			    img.src = path;			
+			}
+			// 上传文件
+			function upload(){ 
+			    plus.nativeUI.showWaiting();
+			    var xhr = new plus.net.XMLHttpRequest();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4 && xhr.status == 200){
+						plus.nativeUI.closeWaiting();
+						plus.nativeUI.alert(xhr.responseText == "ok" ? "上传成功!" :"上传失败!");
+					}
+				};
+				xhr.open( "POST", "http://www.????.com/ajaxUpPicture.php");	//设置你的域名地址
+				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				xhr.send("imgfile="+encodeURIComponent(imgData)); //参数必须编码（坑）
+			}
+			//弹出系统确认对话框
+			function actionSheet(){
+				plus.nativeUI.actionSheet( {title:"请选择图片",cancel:"取消",buttons:[{title:"直接拍照"},{title:"选择相册"}]}, function(e){
+					if(1 == e.index){
+						//plus.nativeUI.alert("直接拍照");
+						var cmr = plus.camera.getCamera();
+						    cmr.captureImage(function(p) {
+						        plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						            appendFile(entry.fullPath);
+						        }, function(e) {
+						            plus.nativeUI.alert(e.message);
+						        });
+						    }, function(e) {}, {
+						        filename: "_doc/camera/"
+						    });
+					}else if(2 == e.index){
+						//plus.nativeUI.alert("选择相册");
+					    plus.gallery.pick(function(path){
+					         appendFile(path);
+					    });
+					}
+				});
+			}
+			function plusReady(){
+				var mainActivity = plus.android.runtimeMainActivity();
+				actionSheet();//如果不想打开页面就弹出菜单就删除此行
+				document.querySelector("button").addEventListener("click",actionSheet,false);
+				var back = false;//退出应用
+				plus.key.addEventListener( "backbutton", function(){
+					back ? plus.runtime.quit() : (back = true);
+					plus.nativeUI.toast( "再按一次退出应用" );
+					setTimeout(function(){back=false},1000);
+					/*	var main = plus.android.runtimeMainActivity();
+					    main.moveTaskToBack(false);退到后台运行	*/
+				}, false );
+			}
+			document.addEventListener("plusready",plusReady,false);
+		</script>
+		<style type="text/css">
+			html {font-family: sans-serif;-webkit-text-size-adjust: 100%;text-align: center;}
+			body{margin: 0;}
+			h1{-webkit-box-shadow: 0 1px 6px #ccc;box-shadow: 0 1px 6px #ccc;margin-top: -2px;font-size: 17px;
+			font-weight: 500;line-height: 44px;color: #000;text-align: center;white-space: nowrap;}
+		</style>
+	</head>
+	<body>
+		<h1>H5+ 图片压缩上传</h1>
+		<p><button type="button">上传图片</button></p>		
+	</body>
+</html>
